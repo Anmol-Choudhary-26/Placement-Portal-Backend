@@ -1,0 +1,8 @@
+.idea
+venv
+temp
+__pycache__/
+migrations/
+!migrations/__init__.py
+.env
+media/
