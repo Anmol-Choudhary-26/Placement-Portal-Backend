@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'tpo',
     'tpr',
     'company',
-    'chat',
     'slotReservation',
     'drive',
     'experience',

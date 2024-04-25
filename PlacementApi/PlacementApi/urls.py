@@ -29,5 +29,4 @@ urlpatterns = [
     path('courses/',include('course.urls')),
     path('announcements/',include('tpo.urls')),
     path('slot/', include('slotReservation.urls')), 
-    path('chat/',include('chat.urls')),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
