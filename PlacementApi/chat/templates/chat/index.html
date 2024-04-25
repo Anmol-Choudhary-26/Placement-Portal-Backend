@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chat App</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f2f2f2;
+    }
+    .chat-container {
+        width: 80%;
+        margin: 50px auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .message {
+        margin-bottom: 10px;
+        padding: 10px;
+        border-radius: 5px;
+    }
+    .user-message {
+        background-color: #8db9e2;
+        color: #fff;
+        align-self: flex-start;
+    }
+    .bot-message {
+        background-color: #86d686;
+        color: #fff;
+        align-self: flex-end;
+    }
+    .input-container {
+        display: flex;
+        margin-top: 20px;
+    }
+    .input-container input {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+    .input-container button {
+        padding: 10px 20px;
+        margin-left: 10px;
+        border: none;
+        background-color: #4caf50;
+        color: #fff;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+</style>
+</head>
+<body>
+<div class="chat-container" id="chat-container">
+    <div class="message user-message">Hello!</div>
+    <div class="message bot-message">Hi there! How can I assist you today?</div>
+</div>
+<div class="input-container">
+    <input type="text" id="message-input" placeholder="Type your message...">
+    <button id="send-button">Send</button>
+</div>
+<script>
+document.getElementById("send-button").addEventListener("click", function() {
+    var messageInput = document.getElementById("message-input").value;
+    sendMessage(messageInput);
+});
+
+function sendMessage(message) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "http://localhost:8000/chat/api/", true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
+                displayMessage(response.message, "bot-message");
+            } else {
+                displayMessage("Error: " + xhr.status, "bot-message");
+            }
+        }
+    };
+    xhr.send(JSON.stringify({ message: message }));
+}
+
+function displayMessage(message, className) {
+    var chatContainer = document.getElementById("chat-container");
+    var messageDiv = document.createElement("div");
+    messageDiv.textContent = message;
+    messageDiv.classList.add("message", className);
+    chatContainer.appendChild(messageDiv);
+}
+</script>
+</body>
+</html>

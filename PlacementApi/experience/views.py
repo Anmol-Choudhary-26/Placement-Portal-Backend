@@ -12,12 +12,12 @@ from rest_framework import permissions
 # Create your views here.
 
 class ExperienceList(generics.ListCreateAPIView):
-    permission_classes = [permissions.IsAuthenticated] 
+    # permission_classes = [permissions.IsAuthenticated] 
     queryset = Experience.objects.all().order_by('-created_at')
     serializer_class = ExperienceSerializer
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = ExperienceFilter
-    pagination_class = CustomPagination
+    # pagination_class = CustomPagination
 
     # def post(self,request):
     #     print(request.data)
@@ -29,13 +29,13 @@ class ExperienceList(generics.ListCreateAPIView):
 
 
 class ExperienceDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = [permissions.IsAuthenticated] 
+    # permission_classes = [permissions.IsAuthenticated] 
     queryset = Experience.objects.all()
     serializer_class = ExperienceDetailSerializer
 
 
 class StudentExperience(generics.ListAPIView):
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
     serializer_class = ExperienceSerializer
 
     def get_queryset(self):
