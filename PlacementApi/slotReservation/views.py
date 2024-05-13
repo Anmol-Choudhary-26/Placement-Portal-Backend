@@ -50,3 +50,10 @@ class Bookslot(GenericAPIView):
             slot.save()
 
         return Response("success")
+    
+class UserCreatedSlotsView(views.APIView):
+    def get(self, request):
+        print(request)
+        user_booked_slots = Slot.objects.filter(author=1)
+        serializer = SlotSerializer(user_booked_slots, many=True)
+        return response.Response(serializer.data)
